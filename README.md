@@ -1,7 +1,7 @@
-ldr2elf
+ldr2dex
 =======
 
-small python script to turn Blackfin loader files (.LDR) back to executable linker format files (.elf)
+small python script to turn Blackfin loader files (.LDR) back to VisualDSP executable files (.dex)
 
 **ATTENTION:**
 
