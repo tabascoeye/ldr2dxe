@@ -1,4 +1,5 @@
-#!/usr/bin/env python2
+#!/usr/bin/python
+# -*- coding: iso-8859-15 -*-
 
 # LDR to elf "deflate"
 #
@@ -41,7 +42,7 @@ class Flags(ctypes.Union):
 
 if __name__ == "__main__":
 	if len(sys.argv) < 3:
-		print "Usage: ", sys.argv[0], " <input ldr file> <output elf fil>"
+		print "Usage: ", sys.argv[0], " <input ldr file> <output elf file>"
 		exit(1)
 	infilename = sys.argv[1]
 	outfilename = sys.argv[2]
@@ -77,25 +78,26 @@ if __name__ == "__main__":
 	outfile = open(outfilename, "wb") # TODO: try/catch for file open
 
 	# main parsing loop: 1) check next header 2) parse flags 3) append content to outfile
-	
-	# while ((header = f.read(4)[::-1]) != EOF)
-	header = infile.read(4)[::-1] # remove this line after the above while loop is coded
-	target = infile.read(4)[::-1] # TODO: check for each read if EOF and exit with error message "infile ended abruptly"
-	bytecount = struct.unpack('i', infile.read(4))[0]
-	argument = infile.read(4)
-	#check if the header is still a valid LDR header
-	if(header[0] != '\xAD'):
-		print "The infile doesn't look like an LDR file, one of the Header identifiers is not 0xAD"
-		exit(1)
-	flags.asbyte = ord(header[2])
-	if(flags.b.fill == 1):
-		for _ in range(bytecount):
-			outfile.write(argument)
-	else:
-		buffer = infile.read(bytecount)
-		outfile.write(buffer)
+	i=1
+	for header in iter(lambda: infile.read(4)[::-1], ""):
+	#header = infile.read(4)[::-1] # remove this line after the above while loop is coded
+		target = infile.read(4)[::-1] # TODO: check for each read if EOF and exit with error message "infile ended abruptly"
+		bytecount = struct.unpack('i', infile.read(4))[0]
+		argument = infile.read(4)
+		#check if the header is still a valid LDR header
+		if(header[0] != '\xAD'):
+			print "The infile doesn't look like an LDR file, one of the Header identifiers is not 0xAD"
+			exit(1)
+		flags.asbyte = ord(header[2])
+		if(flags.b.fill == 1):
+			for _ in range(bytecount):
+				outfile.write(argument)
+		else:
+			buffer = infile.read(bytecount)
+			outfile.write(buffer)
 
-	print '[written] one block'
+		print("[written] block {0}".format(i))
+		i=i+1
 	outfile.close()
 	infile.close()
 		
