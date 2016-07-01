@@ -1,10 +1,10 @@
 #!/usr/bin/python
 # -*- coding: iso-8859-15 -*-
 
-# LDR to elf "deflate"
+# LDR to DEX "deflate"
 #
 # This tool tries to parse the content of a Blackfin loader format file
-# to the original elf (also called DXE for blackfin) file.
+# to the original "elf" (also called DXE for blackfin) file.
 
 # DXE header format:
 # 4 * 4 Bytes (4 processor words, 32 bit, little endian)
@@ -96,7 +96,7 @@ if __name__ == "__main__":
 			buffer = infile.read(bytecount)
 			outfile.write(buffer)
 
-		print("[written] block {0}".format(i))
+		print("[written] block {0} with {1} Bytes".format(i, bytecount))
 		i=i+1
 	outfile.close()
 	infile.close()
