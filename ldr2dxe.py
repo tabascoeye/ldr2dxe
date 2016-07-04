@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: iso-8859-15 -*-
 
-# LDR to DEX "deflate"
+# LDR to DXE "deflate"
 #
 # This tool tries to parse the content of a Blackfin loader format file
 # to the original "elf" (also called DXE for blackfin) file.

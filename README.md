@@ -1,7 +1,7 @@
-ldr2dex
+ldr2dxe
 =======
 
-small python script to turn Blackfin loader files (.LDR) back to VisualDSP executable files (.dex)
+small python script to turn Blackfin loader files (.LDR) back to VisualDSP executable files (.dxe)
 
 **ATTENTION:**
 
